@@ -1,0 +1,75 @@
+---
+import { resources } from '../config';
+---
+
+<section id="resources">
+    <div class="text">
+        <h2>Study Class</h2>
+        <p>Learn By Reading</p>
+    </div>
+    <div class="resources">
+        {resources.map((resource: object) => (
+            <div class="resource">
+                <div class="text">
+                    <p class="title">{resource.title}</p>
+                    <p class="description">{resource.description}</p>
+                </div>
+                <div class="button-primary"><a href={resource.href}>Study {resource.title}</a></div>
+            </div>
+        ))}
+    </div>
+</section>
+<style>
+    .resources {
+        display: flex;
+        gap: 40px;
+        flex-basis: 0;
+        margin: 0 50px;
+    }
+
+    .resources .resource {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 25px;
+        justify-content: center;
+        padding: 10px 20px;
+        border-radius: 1em;
+        box-shadow: 2px 2px 2px var(--tertiary-background);
+        background-color: var(--secondary-background);
+    }
+
+    .resources .resource .title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .resources .resource .description {
+        font-size: 1rem;
+    }
+
+    .resources .resource .button-primary {
+        align-self: center;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .resources {
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin: 50px;
+        }
+
+        .resources .resource .title {
+            text-align: center;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .resources {
+            flex-direction: column;
+            margin: 50px;
+        }
+
+        
+    }
+</style>

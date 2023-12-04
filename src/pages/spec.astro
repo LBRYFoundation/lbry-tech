@@ -1,0 +1,28 @@
+---
+import Markdown from '../layouts/Markdown.astro';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSlug from 'rehype-slug';
+
+
+
+import { markdown } from '@astropub/md'
+
+
+const content = await (await fetch('https://raw.githubusercontent.com/lbryio/spec/master/index.md')).text();
+const md = await markdown(content.replace(`---
+layout: spec
+---`, ''), {
+    rehypePlugins: [
+    [rehypeSlug as any],
+    [rehypeAutolinkHeadings as any, { behavior: 'wrap' }]
+    ]
+});
+
+---
+
+<Markdown frontmatter={{
+    title: "Spec",
+    description: "*Alex Grintsvayg (grin@lbry.com), Jeremy Kauffman (jeremy@lbry.com)*"
+}}>
+    {md}
+</Markdown>

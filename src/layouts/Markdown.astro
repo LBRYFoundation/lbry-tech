@@ -1,0 +1,33 @@
+---
+import Layout from './Layout.astro';
+import { markdown } from '@astropub/md'
+import '../styles/markdown.css';
+// import {compile} from '@mdx-js/mdx'
+
+// const compiled = await compile()
+
+const { frontmatter } = Astro.props;
+
+const description = await markdown(frontmatter.description)
+
+---
+
+<Layout title={frontmatter.title}>
+    <div class="wrapper">
+        <div class="markdown-body">
+            <h1>{frontmatter.title}</h1>
+            <h3>{description}</h3>
+            <slot/>
+        </div>
+    </div>
+    <style>
+        .wrapper {
+            margin: auto;
+            max-width: 1000px;
+        }
+
+        .wrapper .markdown-body {
+            margin: 10px 20px;
+        }
+    </style>
+</Layout>

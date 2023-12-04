@@ -1,0 +1,62 @@
+---
+import { contributions } from "../config";
+---
+
+<section id="contribute">
+    <div class="text">
+        <h2>Contribute</h2>
+        <p>No matter your experience or skill level, you can progress content freedom.</p>
+    </div>
+    <div class="contributions">
+        {contributions.map((contribution: object) => (
+            <div class="contribution">
+                <figure><img src={contribution.url} alt={contribution.title}/></figure>
+                <div class="text">
+                    <p class="title">{contribution.title}</p>
+                </div>
+            </div>
+        ))}
+    </div>
+    <div class="button-primary"><a href="/contribute">Collaborate with Contributors</a></div>
+</section>
+<style>
+    .contributions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .contributions .contribution {
+        display: flex;
+        flex-direction: column;
+        width: 150px;
+        height: 150px;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* padding: 10px; */
+        border-radius: 16px;
+        transition: 0.3s;
+        box-shadow: 2px 2px 2px var(--tertiary-background);
+        background-color: var(--secondary-background);
+    }
+
+    .contributions .contribution figure {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .contributions .contribution figure img {
+        height: 50px;
+        color: red;
+        fill: red;
+    }
+
+    .contributions .contribution .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+</style>

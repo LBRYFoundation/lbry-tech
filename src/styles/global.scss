@@ -1,0 +1,92 @@
+@import url(https://fonts.bunny.net/css?family=roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i);
+
+:root {
+    --accent: #27E4EB;
+    --background: #072A46;
+    --secondary-background: #051D31;
+    --tertiary-background: #041523;
+    --header-text: #FAFAFA;
+    --body-text: #DDDDDD;
+
+    --astro-code-color-text: white;
+    --astro-code-color-background: black;
+    --astro-code-token-constant: plum;
+    --astro-code-token-string: purple;
+    --astro-code-token-comment: tomato;
+    --astro-code-token-keyword: darkslategrey;
+    --astro-code-token-parameter: coral;
+    --astro-code-token-function: green;
+    --astro-code-token-string-expression: chartreuse;
+    --astro-code-token-punctuation: gray;
+    --astro-code-token-link: firebrick;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*:target{ padding-top: 100px;margin-top: -100px}
+
+html {
+    font-family: 'Roboto', sans-serif;
+    margin-top: 75px;
+    scroll-behavior: smooth;
+}
+
+header {
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    z-index: 100;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh);
+    color: var(--body-text);
+    background-color: var(--background);
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    width: 100vw;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--header-text);
+}
+
+p {
+    color: var(--body-text);
+}
+
+a {
+    color: var(--body-text);
+    text-decoration: none;
+}
+
+.button-primary {
+    user-select: none;
+    font-weight: bold;
+    width: fit-content;
+    height: fit-content;
+    transition: 0.3s;
+    margin: 10px 0;
+}
+
+.button-primary a {
+    font-size: 1.25rem;
+    border-radius: 0.5em;
+    padding: 10px 20px;
+    background-color: var(--tertiary-background);
+}
+
+.button-primary:hover {
+    transform: scale(1.1);
+}

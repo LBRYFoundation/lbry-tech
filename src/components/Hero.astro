@@ -1,0 +1,153 @@
+<div class="hero">
+    <div class="left">
+        <div class="center">
+            <h1>LBRY</h1>
+            <p>LBRY is a <span class="tag">free</span>, <span class="tag">open</span>, and <span class="tag">community-run</span> digital marketplace.<br/>
+            Build the future of content freedom. </p>
+        </div>
+    </div>
+    <div class="right">
+        <figure><img src="https://picsum.photos/750/420" /></figure>
+        <div class="body">
+            <a class="button-primary" href="/playground">Explore our Playground</a>
+        </div>
+    </div>
+</div>
+<style>
+
+	.hero {
+		display: flex;
+		/* align-items: center; */
+		min-height: 50vh;
+		gap: 50px;
+		background-color: var(--secondary-background);
+	}
+
+	.center {
+		display: flex;
+		flex-direction: column;
+		align-self: flex-end;
+	}
+
+	.left, .right {
+		display: flex;
+		align-items: flex-start;
+        justify-content: center;
+		flex-direction: column;
+		width: 50%;
+        margin: 0 25px;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+	}
+
+	.hero .left p {
+		font-size: 1.5rem;
+		line-height: 2rem;
+	}
+
+	.tag {
+		font-weight: bold;
+		color: var(--accent);
+	}
+
+    .hero .right {
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        /* overflow: hidden; */
+    }
+
+    .hero .right .body {
+        position: absolute;
+        align-items: center;
+    }
+
+    .hero .right .body a {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        background: rgba(4, 21, 35, 0.5);;
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 2px var(--tertiary-background);
+        backdrop-filter: blur(7.7px);
+        -webkit-backdrop-filter: blur(7.7px);
+    }
+
+    .hero .right .body a:hover {
+        transform: scale(1.2);
+        transform: rotate(2deg);
+        color: var(--accent);
+    }
+
+    .hero .right figure {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* max-height: 90%; */
+        overflow: hidden;
+    }
+
+    .hero .right img {
+        /* position: absolute; */
+        width: 70%;
+        align-self: center;
+        /* top: 25%; */
+        /* left: 85px; */
+        /* top: 92px; */
+        transform: rotate(-2deg);
+        transform-origin: 0 0;
+        box-shadow: 2px 2px 2px;
+        border-radius: 16px;
+        filter: blur(1px);
+    }
+
+    /* img {
+        position: absolute;
+        width: 70%;
+        transform: translateY(-40%);
+        border-radius: 1em;
+        box-shadow: inset 0 0 10px 10px #000;
+    } */
+
+    @media only screen and (max-width: 1000px) {
+        .hero {
+            gap: 25px;
+        }
+    }
+
+    @media only screen and (max-width: 750px) {
+        .hero {
+            align-items: center;
+            flex-direction: column;
+            gap: 50px;
+            padding: 20px 0;
+        }
+
+        .hero .left, .hero .right {
+            margin: 0;
+            width: 80%;
+        }
+
+        .hero .body {
+            width: fit-content;
+        }
+
+        .hero .right .body a {
+            width: fit-content;
+        }
+
+        .hero .right .body a:hover {
+            transform: scale(1.2);
+            transform: rotate(2deg);
+            color: var(--accent);
+        }
+    }
+</style>

@@ -1,12 +1,14 @@
 ---
 import Layout from './Layout.astro';
-import { markdown } from '@astropub/md'
+import { markdown } from '@astropub/md';
+import { getCollection } from "astro:content";
+import TableOfContents from '../components/TableOfContents.astro';
+
 import '../styles/markdown.css';
-// import {compile} from '@mdx-js/mdx'
 
-// const compiled = await compile()
+const { frontmatter, headings, collection } = Astro.props;
 
-const { frontmatter } = Astro.props;
+const items = await getCollection(collection) || [];
 
 const description = await markdown(frontmatter.description)
 
@@ -14,20 +16,40 @@ const description = await markdown(frontmatter.description)
 
 <Layout title={frontmatter.title}>
     <div class="wrapper">
+        <section>
+            {items.length ? (
+                <a href={`/${collection}`}>{collection.charAt(0).toUpperCase() + collection.slice(1)}</a>
+            <ul>
+                {items.map(item=> (
+                    <li><a href={`/${item.collection}/${item.slug}`}>{item.data.title}</a></li>
+                ))}
+            </ul>
+            ) : null}
+        </section>
         <div class="markdown-body">
             <h1>{frontmatter.title}</h1>
             <h3>{description}</h3>
             <slot/>
         </div>
+        <section class="toc">
+            <TableOfContents headings={headings} />
+        </section>
     </div>
     <style>
         .wrapper {
-            margin: auto;
-            max-width: 1000px;
+            display: flex;
+            margin: 20px;
+            /* max-width: 1000px; */
         }
 
         .wrapper .markdown-body {
             margin: 10px 20px;
+            max-width: 1000px;
+        }
+
+        .wrapper .toc {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </Layout>

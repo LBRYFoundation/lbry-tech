@@ -1,0 +1,31 @@
+---
+import Markdown from '../layouts/Markdown.astro';
+
+const frontmatter = {
+    description: "Find the LBRY specification, API documentation, our Contributor's guide, and more in the Resources area."
+}
+---
+
+<Markdown title="Tutorials" frontmatter={frontmatter} collection="tutorials">
+    <h2>Setup your Development Environment</h2>
+    
+    <h3>Desktop Application</h3>
+    <p><a href="/resources/video-lbrydesktop">Video tutorial</a> to setup the <a href="https://github.com/lbryio/lbry-desktop">Desktop app</a> development environment.</p>
+
+    <h3>Android Application</h3>
+    <p><a href="/resources/video-lbryandroid">Video tutorial</a> to setup the <a href="https://github.com/lbryio/lbry-android">Android app</a> development environment.</p>
+
+    <h3>LBRY SDK</h3>
+    <p><a href="/resources/video-lbrysdk">Video tutorial</a> to setup the <a href="https://github.com/lbryio/lbry-sdk">LBRY SDK</a> development environment.</p>
+
+    <h3>LBRY Blockchain</h3>
+    <p><a href="/resources/video-lbrycrd">Video tutorial</a> to setup the <a href="https://github.com/lbryio/lbrycrd">LBRY Blockchain</a> development environment.</p>
+</Markdown>
+
+---
+layout: '../layouts/Markdown.astro'
+title: Tutorials
+description: Learn how to setup, use, deploy, and develop with LBRY.
+---
+
+

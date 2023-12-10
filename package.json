@@ -2,11 +2,11 @@
   "name": "lbry-tech",
   "version": "0.0.1",
   "dependencies": {
-    "@astrojs/mdx": "^1.1.5",
+    "@astrojs/mdx": "^2.0.0",
     "@astropub/md": "^0.3.0",
     "@lbry/components": "^4.2.5",
     "@thewebforge/astro-code-blocks": "^0.2.0",
-    "astro": "^3.6.1",
+    "astro": "^4.0.3",
     "astro-preload": "^1.1.2",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",

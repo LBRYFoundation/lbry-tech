@@ -15,6 +15,7 @@ const items = await getCollection(collection) || [];
 const description = await markdown.parse(frontmatter.description);
 
 const isActive = (href: string)=>{
+    if (href[href.length - 1] === '/') href.split('').pop().join('');
     return href === pathname || href === pathname.split('/').slice(0,2).join('/');
 }
 

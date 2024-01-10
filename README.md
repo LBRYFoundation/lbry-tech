@@ -9,3 +9,4 @@ TODO:
 - [ ] API Docs ([Fetched from project repos](https://tech.lbry.nu/api/sdk))
 - [ ] Collection layout (Resources) *WIP* [Pigges](https://github.com/pigges)
 - [ ] Review the documentation for outdated information
+- [ ] Write proper meta tags

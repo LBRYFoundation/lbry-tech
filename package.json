@@ -8,6 +8,7 @@
     "@thewebforge/astro-code-blocks": "^0.2.0",
     "astro": "^4.0.3",
     "astro-preload": "^1.1.2",
+    "markdown-wasm": "^1.2.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "sass": "^1.69.5"

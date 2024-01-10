@@ -8,48 +8,74 @@ import '../styles/markdown.css';
 
 const { frontmatter, headings, collection } = Astro.props;
 
-const items = await getCollection(collection) || [];
+const items = collection ? await getCollection(collection) : [];
 
-const description = await markdown(frontmatter.description)
+const description = await markdown(frontmatter.description);
 
 ---
 
 <Layout title={frontmatter.title}>
     <div class="wrapper">
-        <section>
-            {items.length ? (
-                <a href={`/${collection}`}>{collection.charAt(0).toUpperCase() + collection.slice(1)}</a>
-            <ul>
-                {items.map(item=> (
-                    <li><a href={`/${item.collection}/${item.slug}`}>{item.data.title}</a></li>
-                ))}
-            </ul>
-            ) : null}
-        </section>
-        <div class="markdown-body">
-            <h1>{frontmatter.title}</h1>
-            <h3>{description}</h3>
-            <slot/>
+        <div class="main">
+            <div class="content">
+                {headings && (
+                    <aside class="toc">
+                        <TableOfContents headings={headings} />
+                    </aside>
+                )}
+                <div class="markdown-body">
+                    <h1>{frontmatter.title}</h1>
+                    <h3>{description}</h3>
+                    <slot/>
+                </div>
+            </div>
         </div>
-        <section class="toc">
-            <TableOfContents headings={headings} />
-        </section>
     </div>
     <style>
         .wrapper {
             display: flex;
-            margin: 20px;
             /* max-width: 1000px; */
         }
 
+        .wrapper .main {
+            width: 100vw;
+        }
+
+        .wrapper .main .content {
+            display: flex;
+            /* width: fit-content; */
+            /* max-width: 100%; */
+            order: 1;
+            margin: 20px 0 0 20px;
+        }
+
+        .wrapper .main aside {
+            display: flex;
+            align-items: center;
+            order: 2;
+            width: fit-content;
+            max-width: 25%;
+            margin: 0 auto;
+        }
+
         .wrapper .markdown-body {
-            margin: 10px 20px;
-            max-width: 1000px;
+            /* margin: 10px 20px; */
+            max-width: 75%;
         }
 
         .wrapper .toc {
             display: flex;
             flex-direction: column;
+        }
+
+        @media only screen and (max-width: 750px) {
+            .wrapper .sidebar {
+                transform: translateX(-80%);
+            }
+
+            .wrapper .main {
+                padding-inline-start: calc(400px * 0.2);
+            }
         }
     </style>
 </Layout>

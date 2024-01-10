@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Markdown from '../../layouts/Markdown.astro';
+import Markdown from '../../layouts/Collections.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('resources');

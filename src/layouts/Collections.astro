@@ -8,14 +8,22 @@ import TableOfContents from '../components/TableOfContents.astro';
 import '../styles/markdown.css';
 
 const { frontmatter, headings, collection } = Astro.props;
-const { pathname } = Astro.url;
+let { pathname } = Astro.url;
+if (pathname.split('')[pathname.length - 1] === '/') pathname = pathname.substring(0, pathname.length - 1);
 
 const items = await getCollection(collection) || [];
 
 const description = await markdown.parse(frontmatter.description);
 
 const isActive = (href: string)=>{
-    if (href[href.length - 1] === '/') href.split('').pop().join('');
+    if (pathname.split('')[pathname.length - 1] === '/') {
+        pathname = pathname.split('');
+        pathname.pop();
+        pathname = pathname.join('');
+    }
+    console.log(pathname);
+    
+    
     return href === pathname || href === pathname.split('/').slice(0,2).join('/');
 }
 

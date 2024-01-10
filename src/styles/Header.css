@@ -6,7 +6,7 @@ header {
 header nav {
     display: flex;
     justify-content: space-between;
-    height: 75px;
+    height: var(--nav-height);
     padding: 0 20px;
 }
 

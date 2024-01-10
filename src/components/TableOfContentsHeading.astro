@@ -8,12 +8,39 @@ const { heading } = Astro.props;
     {heading.text}
   </a>
   {
-    heading.subheadings.length > 0 && (
+    heading.children.length > 0 && (
       <ul>
-        {heading.subheadings.map((subheading) => (
-          <Astro.self heading={subheading} />
+        {heading.children.map((child) => (
+          <Astro.self heading={child} />
         ))}
       </ul>
     )
   }
 </li>
+<style>
+    li a {
+        display: inline-block;
+        font-size: 0.875rem;
+        width: 100%;
+        /* margin-left: 0.3rem; */
+        padding: 0.5em 0.5rem;
+        border-radius: 0.25em;
+    }
+
+    li a.active {
+        color: var(--header-text);
+        background-color: var(--tertiary-background);
+    }
+
+    li a:hover {
+        color: var(--header-text);
+        /* border-left: 1px solid var(--secondary-background); */
+        background-color: var(--tertiary-background);
+    }
+
+  li ul {
+    list-style: none;
+    padding-inline-start: 1rem;
+    /* border-left: 1px solid var(--secondary-background); */
+  }
+</style>

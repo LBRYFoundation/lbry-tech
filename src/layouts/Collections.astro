@@ -1,0 +1,157 @@
+---
+import Layout from './Layout.astro';
+import { markdown } from '@astropub/md';
+import { getCollection } from "astro:content";
+import TableOfContents from '../components/TableOfContents.astro';
+
+import '../styles/markdown.css';
+
+const { frontmatter, headings, collection } = Astro.props;
+const { pathname } = Astro.url;
+
+const items = await getCollection(collection) || [];
+
+const description = await markdown(frontmatter.description);
+
+const isActive = (href: string)=>{
+    return href === pathname || href === pathname.split('/').slice(0,2).join('/');
+}
+
+---
+
+<Layout title={frontmatter.title}>
+    <div class="wrapper">
+        <section class="sidebar">
+            <div class="container">
+                {items.length ? (
+                    <summary>
+                        <a class="title" href={`/${collection}`}>{collection.charAt(0).toUpperCase() + collection.slice(1)}</a>
+                    </summary>
+                    <ul>
+                        {items.map(item=> (
+                            <li class:list={[isActive(`/${item.collection}/${item.slug}`) ? "active": ""]}><a href={`/${item.collection}/${item.slug}`}>{item.data.title}</a></li>
+                        ))}
+                    </ul>
+                ) : null}
+            </div>
+        </section>
+        <div class="main">
+            <div class="content">
+                <aside class="toc">
+                    <TableOfContents headings={headings} />
+                </aside>
+                <div class="markdown-body">
+                    <h1>{frontmatter.title}</h1>
+                    <h3>{description}</h3>
+                    <slot/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .wrapper {
+            display: flex;
+            --sidebar-width: 300px;
+            /* max-width: 1000px; */
+        }
+        
+        .wrapper .sidebar {
+            position: fixed;
+            width: var(--sidebar-width);
+            height: 100vh;
+            overflow-y: auto;
+            inset-block: 0;
+            inset-inline-start: 0;
+            /* padding: 20px; */
+            padding-top: var(--nav-height);
+            background-color: var(--secondary-background);
+        }
+
+        .wrapper .sidebar .container {
+            padding: 1rem 1rem 0;
+        }
+
+        .wrapper .sidebar summary .title {
+            /* font-size: 1.5rem; */
+            font-weight: bold;
+        }
+
+        .wrapper .sidebar ul {
+            list-style: none;
+            margin: 0.5rem;
+            padding-inline-start: 0;
+            /* border-left: 1px solid var(--background); */
+        }
+
+        .wrapper .sidebar ul li {
+            /* width: fit-content; */
+            /* height: fit-content; */
+            /* padding: 10px 20px; */
+            border-left: 1px solid var(--background);
+        }
+        
+        .wrapper .sidebar ul li a {
+            display: inline-block;
+            font-size: 0.875rem;
+            width: 100%;
+            margin-left: 0.3rem;
+            padding: 0.5em 0.5rem;
+            border-radius: 0.25em;
+        }
+        
+        .wrapper .sidebar ul li.active {
+            border-left: 1px solid var(--header-text);
+        }
+        
+        .wrapper .sidebar ul li.active a {
+            background-color: var(--tertiary-background);
+
+        }
+
+        .wrapper .sidebar ul li.active a, .wrapper .sidebar ul li a:hover {
+            color: var(--header-text);
+        }
+
+        .wrapper .main {
+            width: 100vw;
+            padding-inline-start: var(--sidebar-width);
+        }
+
+        .wrapper .main .content {
+            display: flex;
+            /* width: fit-content; */
+            /* max-width: 100%; */
+            order: 1;
+            margin: 20px 0 0 20px;
+        }
+
+        .wrapper .main aside {
+            display: flex;
+            align-items: center;
+            order: 2;
+            width: fit-content;
+            max-width: 25%;
+            margin: 0 auto;
+        }
+
+        .wrapper .markdown-body {
+            /* margin: 10px 20px; */
+            max-width: 75%;
+        }
+
+        .wrapper .toc {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media only screen and (max-width: 750px) {
+            .wrapper .sidebar {
+                transform: translateX(-80%);
+            }
+
+            .wrapper .main {
+                padding-inline-start: calc(var(--sidebar-width) * 0.2);
+            }
+        }
+    </style>
+</Layout>

@@ -3,19 +3,32 @@ import Markdown from '../layouts/Markdown.astro';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 
+import markdown from 'markdown-wasm';
+
+// import { markdown } from '@astropub/md'
 
 
-import { markdown } from '@astropub/md'
-
-
-const content = await (await fetch('https://raw.githubusercontent.com/lbryio/spec/master/index.md')).text();
-const md = await markdown(content.replace(`---
+let content = await (await fetch('https://raw.githubusercontent.com/lbryio/spec/master/index.md')).text();
+// const md = await markdown(content.replace(`---
+// layout: spec
+// ---`, ''), {
+//     rehypePlugins: [
+//     [rehypeSlug as any],
+//     [rehypeAutolinkHeadings as any, { behavior: 'wrap' }]
+//     ]
+// });
+content = content.replace(`---
 layout: spec
----`, ''), {
-    rehypePlugins: [
-    [rehypeSlug as any],
-    [rehypeAutolinkHeadings as any, { behavior: 'wrap' }]
-    ]
+---`, '')
+
+// Extract the headings from the markdown
+const headings = content.match(/(?<flag>#{1,6})\s+(?<content>.+)/g).map(heading=>{
+    const text = heading.replaceAll('#', '').replace(' ', '');
+    return {
+        depth: heading.replace(/[^#]/g, "").length, // Get number of '#' a heading has
+        slug: text.replaceAll(' ', '-').toLowerCase(), // URL friendly path
+        text
+    }
 });
 
 ---
@@ -23,6 +36,6 @@ layout: spec
 <Markdown frontmatter={{
     title: "Spec",
     description: "*Alex Grintsvayg (grin@lbry.com), Jeremy Kauffman (jeremy@lbry.com)*"
-}}>
-    {md}
+}} headings={headings}>
+    {<Fragment set:html={markdown.parse(content)}/>}
 </Markdown>

@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
-import { markdown } from '@astropub/md';
+// import { markdown } from '@astropub/md';
+import markdown from 'markdown-wasm';
 import { getCollection } from "astro:content";
 import TableOfContents from '../components/TableOfContents.astro';
 
@@ -11,11 +12,12 @@ const { pathname } = Astro.url;
 
 const items = await getCollection(collection) || [];
 
-const description = await markdown(frontmatter.description);
+const description = await markdown.parse(frontmatter.description);
 
 const isActive = (href: string)=>{
     return href === pathname || href === pathname.split('/').slice(0,2).join('/');
 }
+
 
 ---
 
@@ -42,7 +44,7 @@ const isActive = (href: string)=>{
                 </aside>
                 <div class="markdown-body">
                     <h1>{frontmatter.title}</h1>
-                    <h3>{description}</h3>
+                    <h3><Fragment set:html={description}/></h3>
                     <slot/>
                 </div>
             </div>

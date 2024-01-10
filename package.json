@@ -2,16 +2,15 @@
   "name": "lbry-tech",
   "version": "0.0.1",
   "dependencies": {
-    "@astrojs/mdx": "^2.0.0",
-    "@astropub/md": "^0.3.0",
+    "@astrojs/mdx": "^2.0.3",
     "@lbry/components": "^4.2.5",
     "@thewebforge/astro-code-blocks": "^0.2.0",
-    "astro": "^4.0.3",
+    "astro": "^4.1.1",
     "astro-preload": "^1.1.2",
     "markdown-wasm": "^1.2.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
-    "sass": "^1.69.5"
+    "sass": "^1.69.7"
   },
   "scripts": {
     "dev": "astro dev",

@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
-import { markdown } from '@astropub/md';
+// import { markdown } from '@astropub/md';
+import markdown from 'markdown-wasm';
 import { getCollection } from "astro:content";
 import TableOfContents from '../components/TableOfContents.astro';
 
@@ -10,7 +11,7 @@ const { frontmatter, headings, collection } = Astro.props;
 
 const items = collection ? await getCollection(collection) : [];
 
-const description = await markdown(frontmatter.description);
+const description = await markdown.parse(frontmatter.description);
 
 ---
 
@@ -25,7 +26,7 @@ const description = await markdown(frontmatter.description);
                 )}
                 <div class="markdown-body">
                     <h1>{frontmatter.title}</h1>
-                    <h3>{description}</h3>
+                    <h3><Fragment set:html={description}/></h3>
                     <slot/>
                 </div>
             </div>

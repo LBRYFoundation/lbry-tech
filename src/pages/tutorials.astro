@@ -2,11 +2,12 @@
 import Markdown from '../layouts/Collections.astro';
 
 const frontmatter = {
+    title: "Tutorials",
     description: "Find the LBRY specification, API documentation, our Contributor's guide, and more in the Resources area."
 }
 ---
 
-<Markdown title="Tutorials" frontmatter={frontmatter} collection="tutorials">
+<Markdown title="Tutorials" frontmatter={frontmatter} collection="tutorials" noedit={true}>
     <h2>Setup your Development Environment</h2>
     
     <h3>Desktop Application</h3>
@@ -21,11 +22,3 @@ const frontmatter = {
     <h3>LBRY Blockchain</h3>
     <p><a href="/resources/video-lbrycrd">Video tutorial</a> to setup the <a href="https://github.com/lbryio/lbrycrd">LBRY Blockchain</a> development environment.</p>
 </Markdown>
-
----
-layout: '../layouts/Markdown.astro'
-title: Tutorials
-description: Learn how to setup, use, deploy, and develop with LBRY.
----
-
-

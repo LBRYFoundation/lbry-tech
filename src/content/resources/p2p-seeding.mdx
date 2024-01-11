@@ -1,6 +1,6 @@
 ---
 title: "LBRY P2P: Settings and troubleshooting"
-description: Guide on properly setting up P2P nodes and how to diagnose/fix common issues.
+description: "Guide on properly setting up P2P nodes and how to diagnose/fix common issues."
 ---
 
 # LBRY P2P: Settings and troubleshooting
@@ -21,8 +21,8 @@ There are some websites providing generic ways to check ports, like:
 - https://portchecker.co/check
 
 However, checking the port does not check if LBRY P2P protocol is working behind it. For a better check, we can use a tool hosted by Madiator, a community member.
-- To test for UDP (DHT): http://test.madiator.com:60666/dht/<your `udp_port`>
-- To test for TCP (P2P): http://test.madiator.com:60666/p2p/<your `tcp_port`>
+- To test for UDP (DHT): `http://test.madiator.com:60666/dht/<your udp_port>`
+- To test for TCP (P2P): `http://test.madiator.com:60666/p2p/<your tcp_port>`
 
 As a last resource to test a remote machine DHT service, from a local SDK try:
 ```bash

@@ -39,7 +39,7 @@ const description = await markdown.parse(frontmatter.description);
         }
 
         .wrapper .main {
-            width: 100vw;
+            width: calc(100vw - var(--sidebar-width));
         }
 
         .wrapper .main .content {
@@ -47,21 +47,21 @@ const description = await markdown.parse(frontmatter.description);
             /* width: fit-content; */
             /* max-width: 100%; */
             order: 1;
-            margin: 20px 0 0 20px;
+            margin: 1rem;
         }
 
         .wrapper .main aside {
             display: flex;
             align-items: center;
             order: 2;
-            width: fit-content;
-            max-width: 25%;
+            /* max-width: 25%; */
             margin: 0 auto;
         }
 
         .wrapper .markdown-body {
             /* margin: 10px 20px; */
-            max-width: 75%;
+            /* max-width: 75%; */
+            max-width: 100%;
         }
 
         .wrapper .toc {

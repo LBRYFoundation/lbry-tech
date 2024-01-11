@@ -4,7 +4,7 @@ description: How does signing a claim (a publish) work in LBRY-land? This page e
 ---
 
 Reilly wants to publish _Terror on the Midway_ to the channel he claimed `lbry://@FleischerSuperman`. He picks the name "terroronthemidway", and fills in the information for the claim:
-
+```json
     {
         "claimType": "streamType",
         "stream": {
@@ -30,6 +30,7 @@ Reilly wants to publish _Terror on the Midway_ to the channel he claimed `lbry:/
         },
         "version": "_0_0_1"
     }
+```
 
 This is serialized as:
 
@@ -47,10 +48,10 @@ He starts by generating an address for the new name claim:
 
 His claim for the certificate at the uri `lbry://@FleischerSuperman` has a `claim_id` of
 
-    2996b9a087c18456402b57cba6085b2a8fcc136d
+    `2996b9a087c18456402b57cba6085b2a8fcc136d`
 
 It contains a der-encoded SECP256k1 public key
-
+```json
     {
         "certificate": {
             "keyType": "SECP256k1",
@@ -58,6 +59,7 @@ It contains a der-encoded SECP256k1 public key
                           c59363aa5d77ff2b7ff06cddc07116b335a4a0849b1b524a4a69d908d69f1bcebb",
             "version": "_0_0_1"
     }
+```
 
 ### Signing the claim in detail
 
@@ -74,14 +76,14 @@ Reilly decodes and combines the claim address, the serialized claim value, and t
 
 Then he takes the SHA256 of the combined string, giving:
 
-    dea44974ace1893f304cae4073af06a7a6cbb209f97cf8ad5f322216f044304e
+    `dea44974ace1893f304cae4073af06a7a6cbb209f97cf8ad5f322216f044304e`
 
 He signs (RFC 6979) this hash using the private key to the previously shown certificate, giving the signature:
 
-    bf82d53143155bb0cac1fd3d917c000322244b5ad17e7865124db2ed33812ea66c9b0c3f390a65a9e2d452e315e91ae695642847d88e90348ef3c1fa283a36a8
+    `bf82d53143155bb0cac1fd3d917c000322244b5ad17e7865124db2ed33812ea66c9b0c3f390a65a9e2d452e315e91ae695642847d88e90348ef3c1fa283a36a8`
 
 Now he add this signature to the claim:
-
+```json
     {
         "claimType": "streamType",
         "publisherSignature": {
@@ -113,6 +115,7 @@ Now he add this signature to the claim:
         },
         "version": "_0_0_1"
     }
+```
 
 Serialized, the signed claim is represented as:
 

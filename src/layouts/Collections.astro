@@ -50,7 +50,7 @@ const isActive = (href: string)=>{
         </section>
         <div class="main">
             <div class="content">
-                <aside class="toc">
+                <aside id="toc">
                     <TableOfContents headings={headings} edit={'src/content' + pathname + '.md'} />
                 </aside>
                 <div class="markdown-body">
@@ -162,18 +162,19 @@ const isActive = (href: string)=>{
             width: 100%;
         }
 
-        .wrapper .toc {
+        .wrapper #toc {
             display: flex;
             flex-direction: column;
         }
 
         @media only screen and (max-width: 750px) {
             .wrapper .sidebar {
-                transform: translateX(-80%);
+                transform: translateX(-100%);
             }
 
             .wrapper .main {
-                padding-inline-start: calc(var(--sidebar-width) * 0.2);
+                padding-inline-start: unset;
+                padding-inline-end: unset;
             }
         }
     </style>

@@ -24,21 +24,25 @@ console.log(edit);
 <style is:inline>
     .toc {
         position: fixed;
-        width: var(--sidebar-width);
-        height: 100vh;
+        width: calc(var(--sidebar-width) - 2rem);
+        height: fit-content;
         overflow-y: auto;
+        max-height: calc(100vh - var(--nav-height) - 2rem * 2);
         inset-block: 0;
-        inset-inline-end: 0;
-        padding-top: var(--nav-height);
+        inset-inline-end: 2rem;
+        margin-top: calc(2rem + var(--nav-height));
+        margin-bottom: 2rem;
+        border-radius: 1em;
         background-color: var(--secondary-background);
         transition: 0.3s;
         z-index: 10;
     }
-
+    
     .toc .container {
         display: flex;
         flex-direction: column;
         padding: 1rem 1rem 0;
+        overflow-y: auto;
     }
 
     .toc .container summary {
@@ -60,6 +64,15 @@ console.log(edit);
 
     .toc ul li:hover {
         font-size: 0.785rem;
-        /* border-left: 1px solid var(--header-text); */
+    }
+
+    @media only screen and (max-width: 750px) {
+        .toc {
+            margin-top: var(--nav-height);
+            margin-bottom: 0;
+            inset-inline-start: 0;
+            inset-inline-end: unset;
+            transform: translateX(-100%);
+        }
     }
 </style>

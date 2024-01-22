@@ -5,7 +5,7 @@
     "@astrojs/mdx": "^2.0.3",
     "@lbry/components": "^4.2.5",
     "@thewebforge/astro-code-blocks": "^0.2.0",
-    "astro": "^4.1.1",
+    "astro": "^4.2.1",
     "astro-preload": "^1.1.2",
     "markdown-wasm": "^1.2.0",
     "rehype-autolink-headings": "^7.1.0",

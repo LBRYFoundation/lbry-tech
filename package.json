@@ -10,7 +10,7 @@
     "markdown-wasm": "^1.2.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
-    "sass": "^1.69.7"
+    "sass": "^1.70.0"
   },
   "scripts": {
     "dev": "astro dev",

@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import * as config from "../../config.js";
+import { Code } from 'astro:components';
+
+export function getStaticPaths() {
+    const repos = [
+        "lbry-sdk",
+        "lbrycrd",
+    ]
+    
+    const paths = repos.map(repo=>{
+        return {params: {repo}};
+    });
+
+    return paths; 
+}
+
+const { repo } = Astro.params;
+
+const tags = (await (await fetch(`https://data.jsdelivr.com/v1/packages/gh/${config.GITHUB_ORG}/${repo}`)).json()).versions;
+tags.unshift({version: "master"});
+
+const docs = (await (await fetch(`https://cdn.jsdelivr.net/gh/${config.GITHUB_ORG}/${repo}/docs/api.json`)).json());
+console.log(docs);
+
+
+---
+
+
+<Layout title={repo}>
+    <div>Looking at repo: {repo}!</div>
+    <div class="sidebar">
+        <ul>
+            {Object.keys(docs).map(header=>(
+                <li>
+                    <a href={`#${header}`}>{header}</a>
+                    {docs[header].commands.map(cmd=>(
+                        <p><a href={`#${cmd.name}`}>{cmd.name}</a></p>
+                    ))}
+                </li>
+            ))}
+        </ul>
+    </div>
+    <select>
+        {tags.map(tag=>(
+            <option>{tag.version}</option>
+        ))}
+    </select>
+    <div>
+        {Object.keys(docs).map(header=>(
+            <section>
+                <h2 id={header}>{header}</h2>
+                {docs[header].commands.map(cmd=>(
+                    <h3 id={cmd.name}>{cmd.name}</h3>
+                    <p>{cmd.description}</p>
+                    <Code lang={"json"} code={cmd.returns} />
+                    <code>
+                    </code>  
+                ))}
+            </section>
+        ))}
+    </div>
+</Layout>

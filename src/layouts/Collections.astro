@@ -35,6 +35,11 @@ const isActive = (href: string)=>{
 <Layout title={frontmatter.title}>
     <div class="wrapper">
         <section class="sidebar">
+            {(headings && headings.length) ? (
+                <aside id="toc">
+                    <TableOfContents headings={headings} />
+                </aside>
+            ) : ''}
             <div class="container">
                 {items.length ? (
                     <summary>
@@ -50,15 +55,17 @@ const isActive = (href: string)=>{
         </section>
         <div class="main">
             <div class="content">
-                <aside id="toc">
-                    <TableOfContents headings={headings} edit={'src/content' + pathname + '.md'} />
-                </aside>
+                <!-- {headings && (
+                    <aside id="toc">
+                        <TableOfContents headings={headings} />
+                    </aside>
+                )} -->
                 <div class="markdown-body">
                     <h1>{frontmatter.title}</h1>
                     <h3><Fragment set:html={description}/></h3>
                     <slot/>
                     {!noedit && (
-                        <hr>
+                        <hr/>
                         <a class="edit" href={`https://github.com/${REPOSITORY}/tree/master/src/content${pathname}.mdx`} target="_blank">{EDIT_PAGE}</a>
                     )}
                 </div>
@@ -68,24 +75,29 @@ const isActive = (href: string)=>{
     <style>
         .wrapper {
             display: flex;
-            /* max-width: 1000px; */
         }
         
         .wrapper .sidebar {
             position: fixed;
             width: var(--sidebar-width);
-            height: 100vh;
+            height: 100%;
+            max-height: calc(100% - var(--nav-height));
             overflow-y: auto;
             inset-block: 0;
             inset-inline-start: 0;
+            margin-top: var(--nav-height);
+            padding-bottom: var(--nav-height);
             /* padding: 20px; */
-            padding-top: var(--nav-height);
+            // padding: var(--nav-height) 0;
             background-color: var(--secondary-background);
             transition: 0.3s;
+            z-index: 10;
         }
-
+        
         .wrapper .sidebar .container {
+            position: relative;
             padding: 1rem 1rem 0;
+            // height: calc(100vh - var(--nav-height)*2);
         }
 
         .wrapper .sidebar summary .title {
@@ -148,23 +160,42 @@ const isActive = (href: string)=>{
             margin: 1rem;
         }
 
-        .wrapper .main aside {
-            display: flex;
-            align-items: center;
-            order: 2;
-            width: fit-content;
-            max-width: 25%;
-            margin: 0 auto;
-        }
-
         .wrapper .markdown-body {
             // padding: 10px 20px;
             width: 100%;
         }
 
         .wrapper #toc {
-            display: flex;
-            flex-direction: column;
+            position: fixed;
+            width: calc(var(--sidebar-width) - 2rem);
+            height: fit-content;
+            max-height: calc(100vh - var(--nav-height)*2 - 2rem * 2);
+            inset-block: 0;
+            inset-inline-end: 2rem;
+            margin: calc(2rem + var(--nav-height)) 0;
+            // background-color: var(--secondary-background);
+            transition: 0.3s;
+            z-index: 10;
+            overflow-y: auto;
+            border-radius: 1em;
+            background-color: var(--secondary-background);
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .wrapper #toc {
+                position: relative;
+                width: var(--sidebar-width);
+                max-height: unset;
+                inset-block: unset;
+                inset-inline-end: unset;
+                margin-top: 0;
+                z-index: 1;
+                background-color: transparent;
+            }
+
+            .wrapper .main {
+                padding-inline-end: unset;
+            }
         }
 
         @media only screen and (max-width: 750px) {
@@ -172,9 +203,13 @@ const isActive = (href: string)=>{
                 transform: translateX(-100%);
             }
 
+            .wrapper .sidebar.active {
+                transform: translateX(0);
+            }
+
+
             .wrapper .main {
                 padding-inline-start: unset;
-                padding-inline-end: unset;
             }
         }
     </style>

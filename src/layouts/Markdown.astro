@@ -17,13 +17,15 @@ const description = await markdown.parse(frontmatter.description);
 
 <Layout title={frontmatter.title}>
     <div class="wrapper">
+        <section class="sidebar">
+            {headings && (
+                <aside id="toc">
+                    <TableOfContents headings={headings} />
+                </aside>
+            )}
+        </section>
         <div class="main">
             <div class="content">
-                {headings && (
-                    <aside class="toc">
-                        <TableOfContents headings={headings} />
-                    </aside>
-                )}
                 <div class="markdown-body">
                     <h1>{frontmatter.title}</h1>
                     <h3><Fragment set:html={description}/></h3>
@@ -50,32 +52,75 @@ const description = await markdown.parse(frontmatter.description);
             margin: 1rem;
         }
 
-        .wrapper .main aside {
-            display: flex;
-            align-items: center;
-            order: 2;
-            /* max-width: 25%; */
-            margin: 0 auto;
-        }
-
         .wrapper .markdown-body {
             /* margin: 10px 20px; */
             /* max-width: 75%; */
             max-width: 100%;
         }
 
-        .wrapper .toc {
-            display: flex;
-            flex-direction: column;
+        .wrapper #toc {
+            position: fixed;
+            width: calc(var(--sidebar-width) - 2rem);
+            height: fit-content;
+            max-height: calc(100vh - var(--nav-height)*2 - 2rem * 2);
+            inset-block: 0;
+            inset-inline-end: 2rem;
+            margin: calc(2rem + var(--nav-height)) 0;
+            background-color: var(--secondary-background);
+            transition: 0.3s;
+            z-index: 10;
+            overflow-y: auto;
+            border-radius: 1em;
+            background-color: var(--secondary-background);
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .wrapper .sidebar {
+                position: fixed;
+                width: var(--sidebar-width);
+                height: 100%;
+                max-height: calc(100% - var(--nav-height));
+                overflow-y: auto;
+                inset-block: 0;
+                inset-inline-start: 0;
+                margin-top: var(--nav-height);
+                padding-bottom: var(--nav-height);
+                /* padding: 20px; */
+                // padding: var(--nav-height) 0;
+                background-color: var(--secondary-background);
+                transition: 0.3s;
+                z-index: 10;
+            }
+
+            .wrapper #toc {
+                position: relative;
+                width: var(--sidebar-width);
+                max-height: unset;
+                inset-block: unset;
+                inset-inline-end: unset;
+                margin-top: 0;
+                z-index: 1;
+                background-color: transparent;
+            }
+
+            .wrapper .main {
+                width: 100%;
+                padding-inline-start: var(--sidebar-width);
+            }
         }
 
         @media only screen and (max-width: 750px) {
             .wrapper .sidebar {
-                transform: translateX(-80%);
+                transform: translateX(-100%);
+            }
+
+            .wrapper .sidebar.active {
+                transform: translateX(0);
             }
 
             .wrapper .main {
-                padding-inline-start: calc(400px * 0.2);
+                width: 100%;
+                padding-inline-start: 0;
             }
         }
     </style>

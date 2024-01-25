@@ -17,6 +17,10 @@ const isActive = (href: string)=>{
     return href === pathname || href === pathname.split('/').slice(0,2).join('/');
 }
 
+function handleMenu(e) {
+  console.log(e);
+}
+
 ---
 
 <header>
@@ -35,8 +39,25 @@ const isActive = (href: string)=>{
       </ul>
     </div>
     <div class="right">
-      <div class="search"><p>Search TODO</p></div>
-      <btn class="menu"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></btn>
+        <div class="search"><p>Search TODO</p></div>
+        <btn id="menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </btn>
     </div>
   </nav>
 </header>
+<script>
+    const btn = document.querySelector('#menu');
+
+    btn.addEventListener('click', () => {
+        btn.classList.toggle('open');
+        document.querySelectorAll('.sidebar').forEach(sidebar=>{
+            sidebar.classList.toggle('active');
+        })
+    });
+</script>
+<style>
+    
+</style>

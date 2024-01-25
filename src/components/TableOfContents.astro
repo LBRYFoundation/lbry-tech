@@ -3,11 +3,9 @@
 import TableOfContentsHeading from "./TableOfContentsHeading.astro";
 import TocItem from '../utils/generateToc.ts';
 const { headings, edit } = Astro.props;
-import { REPOSITORY, edit_page } from "../config";
+import { REPOSITORY } from "../config";
 
 const toc = headings && headings.length ? TocItem(headings) : [];
-
-console.log(edit);
 
 ---
 
@@ -23,19 +21,12 @@ console.log(edit);
 </section>
 <style is:inline>
     .toc {
-        position: fixed;
         width: calc(var(--sidebar-width) - 2rem);
-        height: fit-content;
-        overflow-y: auto;
-        max-height: calc(100vh - var(--nav-height) - 2rem * 2);
-        inset-block: 0;
-        inset-inline-end: 2rem;
-        margin-top: calc(2rem + var(--nav-height));
-        margin-bottom: 2rem;
-        border-radius: 1em;
-        background-color: var(--secondary-background);
+        height: 100%;
+        overflow-y: scroll;
+        /* max-height: 80%; */
+        /* inset-block: 0; */
         transition: 0.3s;
-        z-index: 10;
     }
     
     .toc .container {
@@ -67,12 +58,12 @@ console.log(edit);
     }
 
     @media only screen and (max-width: 750px) {
-        .toc {
+        /* .toc {
             margin-top: var(--nav-height);
             margin-bottom: 0;
             inset-inline-start: 0;
             inset-inline-end: unset;
             transform: translateX(-100%);
-        }
+        } */
     }
 </style>

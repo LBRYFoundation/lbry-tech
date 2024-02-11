@@ -8,13 +8,13 @@ This guide will walk you through the process of claiming a time locked transacti
 
 If you already have `lbrynet` installed then you can check your version like this:
 
-```
+```bash
 lbrynet version
 ```
 
 If above command fails, you may need to start `lbrynet` first (and then try above again):
 
-```
+```bash
 lbrynet start
 ```
 
@@ -39,7 +39,7 @@ If you do not have `lbrynet` installed or your version is less than `v0.108.0` t
 1. On the USB key, find a file named `key.zip` and unzip this file using the password emailed to you previously.
 1. You should now have a file named `key.txt` which is base64 encoded and contains your `private key` and `redeem script`.
 1. To decode the contents of the file you can use a website such as [base64decode.org](https://www.base64decode.org/) (not a secure option) or if you have Python installed you can do this on the command line:
-  ```
+  ```bash
   python -m base64 -d /path/to/key.txt
   ```
 1. After decoding you will see a key/value mapping of various items, including `privateKey` and `redeemScript`. Take note of these values.
@@ -48,7 +48,7 @@ If you do not have `lbrynet` installed or your version is less than `v0.108.0` t
 
 Now that you have gathered the necessary information it is easy to redeem your LBC. Time locked transaction can be redeemed using the `lbrynet account deposit` command (fill in the values you gathered previously):
 
-```
+```bash
 lbrynet account deposit <transaction id> <nout> <redeemScript> <privateKey>
 ```
 

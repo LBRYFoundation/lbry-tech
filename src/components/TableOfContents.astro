@@ -2,24 +2,68 @@
 // TableOfContents.astro
 import TableOfContentsHeading from "./TableOfContentsHeading.astro";
 import TocItem from '../utils/generateToc.ts';
-const { headings } = Astro.props;
+const { headings, edit } = Astro.props;
+import { REPOSITORY } from "../config";
 
 const toc = headings && headings.length ? TocItem(headings) : [];
 
-console.log(toc);
-
 ---
 
-<nav class="toc">
-    <h2 id="on-this-page">On this page</h2>
-    <ul>
-        {toc.map((heading) => <TableOfContentsHeading heading={heading}/>)}
-    </ul>
-</nav>
-<style>
+<section class="toc">
+    <div class="container">
+        <summary><p id="on-this-page">On this page</p></summary>
+        <nav>
+            <ul>
+                {toc.map((heading) => <TableOfContentsHeading heading={heading}/>)}
+            </ul>
+        </nav>
+    </div>
+</section>
+<style is:inline>
+    .toc {
+        width: calc(var(--sidebar-width) - 2rem);
+        height: 100%;
+        overflow-y: scroll;
+        /* max-height: 80%; */
+        /* inset-block: 0; */
+        transition: 0.3s;
+    }
+    
+    .toc .container {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 1rem 0;
+        overflow-y: auto;
+    }
+
+    .toc .container summary {
+        font-weight: bold;
+    }
+
+    .toc .container nav {
+    }
+    
     .toc ul {
         list-style: none;
         padding-inline-start: 0;
-        border-left: 1px solid var(--secondary-background);
+    }
+    
+    .toc .container nav > ul {
+        margin: 0.5rem;
+        border-left: 1px solid var(--background);
+    }
+
+    .toc ul li:hover {
+        font-size: 0.785rem;
+    }
+
+    @media only screen and (max-width: 750px) {
+        /* .toc {
+            margin-top: var(--nav-height);
+            margin-bottom: 0;
+            inset-inline-start: 0;
+            inset-inline-end: unset;
+            transform: translateX(-100%);
+        } */
     }
 </style>

@@ -1,4 +1,6 @@
 export const AWESOME_LBRY = "https://github.com/LBRYFoundation/Awesome-LBRY";
+export const EDIT_PAGE = "Edit this page";
+export const REPOSITORY = "LBRYFoundation/lbry-tech";
 
 export const features = [
     {

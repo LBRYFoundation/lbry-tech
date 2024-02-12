@@ -89,3 +89,8 @@ export const REDIRECTS = {
   "/tour": "/playground",
   "/whitepaper": "/spec"
 }
+
+export const API_REPOS = {
+  "lbry-sdk": "docs/api.json",
+  "lbrycrd": "contrib/devtools/generated/api_v1.json"
+}

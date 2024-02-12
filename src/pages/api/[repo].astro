@@ -1,14 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import APIArguments from '../../components/APIArguments.astro';
+import APIExamples from '../../components/APIExamples.astro';
+
 import * as config from "../../config.js";
 import { Code } from 'astro:components';
 
 export function getStaticPaths() {
-    const repos = [
-        "lbry-sdk",
-    ]
     
-    const paths = repos.map(repo=>{
+    const paths = Object.keys(config.API_REPOS).map(repo=>{
         return {params: {repo}};
     });
 
@@ -20,44 +21,127 @@ const { repo } = Astro.params;
 const tags = (await (await fetch(`https://data.jsdelivr.com/v1/packages/gh/${config.GITHUB_ORG}/${repo}`)).json()).versions;
 tags.unshift({version: "master"});
 
-const docs = (await (await fetch(`https://cdn.jsdelivr.net/gh/${config.GITHUB_ORG}/${repo}/docs/api.json`)).json());
-console.log(docs);
+const tag = tags[0];
 
+let docs = (await (await fetch(`https://cdn.jsdelivr.net/gh/${config.GITHUB_ORG}/${repo}@${tag.version}/${config.API_REPOS[repo]}`)).json());
+
+
+// Convert lbrycrd docs to the same structure as lbry-sdk
+if (repo === 'lbrycrd') {
+    const crd = {};
+    for (let i in docs) {
+        if (!crd[docs[i].namespace]) crd[docs[i].namespace] = {
+            doc: docs[i].namespace,
+            commands: []
+        };
+        crd[docs[i].namespace].commands.push(docs[i]);
+        console.log(docs[i]);
+        
+        //docs.main[i].command = docs.main[i].name;
+    }
+    docs = crd;
+}
+
+const headings: Array<object> = [];
+
+// Generate headings
+Object.keys(docs).forEach(group=>{
+    headings.push({
+        slug: group,
+        text: group.charAt(0).toUpperCase() + group.substr(1).toLowerCase(),
+        depth: 2
+    });
+
+    docs[group].commands.forEach(cmd=>{
+        headings.push({
+            slug: cmd.name,
+            text: cmd.name,
+            depth: 3
+        });
+    })
+    
+});
 
 ---
 
 
 <Layout title={repo}>
-    <div>Looking at repo: {repo}!</div>
-    <div class="sidebar">
-        <ul>
-            {Object.keys(docs).map(header=>(
-                <li>
-                    <a href={`#${header}`}>{header}</a>
-                    {docs[header].commands.map(cmd=>(
-                        <p><a href={`#${cmd.name}`}>{cmd.name}</a></p>
-                    ))}
-                </li>
+    <div class="wrapper">
+        
+        <TableOfContents headings={headings} />
+        <select>
+            {tags.map(tag=>(
+                <option>{tag.version}</option>
             ))}
-        </ul>
-    </div>
-    <select>
-        {tags.map(tag=>(
-            <option>{tag.version}</option>
-        ))}
-    </select>
-    <div>
-        {Object.keys(docs).map(header=>(
-            <section>
-                <h2 id={header}>{header}</h2>
-                {docs[header].commands.map(cmd=>(
-                    <h3 id={cmd.name}>{cmd.name}</h3>
-                    <p>{cmd.description}</p>
-                    <Code lang={"json"} code={cmd.returns} />
-                    <code>
-                    </code>  
+        </select>
+        <div class="main">
+            <h1>{repo} {tag.version}</h1>
+            <p>Methods and signatures provided by {repo} are documented below. To build, download, or run the daemon, see the project
+                <a href={`https://github.com/${config.GITHUB_ORG}/${repo}/blob/${tag.version}/README.md`}>README</a>.
+            </p>
+            <div class="commands">
+                {Object.keys(docs).map(header=>(
+                    <section>
+                        <h1 id={header}>{header}</h1>
+                        {docs[header].commands.map(cmd=>(
+                            <div class:list={["command", cmd.name]}>
+                                <h2 id={cmd.name}>{cmd.name}</h2>
+                                <p>{cmd.description}</p>
+                                <APIArguments args={cmd.arguments}/>
+                                <APIExamples cmd={cmd.name} examples={cmd.examples[0]}/>
+                                <h3>Returns</h3>
+                                <Code lang={"json"} code={`${cmd.returns || "Not available."}`} class:list={["returns"]} />
+                                </div>
+                            <hr/>
+                        ))}
+                    </section>
                 ))}
-            </section>
-        ))}
+            </div>
+        </div>
     </div>
+    <style>
+        .wrapper {
+            padding: 1rem;
+        }
+
+        .wrapper .main {
+            /* width: calc(100vw - var(--sidebar-width)); */
+            padding-inline-end: var(--sidebar-width);
+            transition: 0.3s;
+            overflow-x: hidden;
+            max-width: 1750px;
+            width: calc(100%);
+        }
+
+        .commands {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .commands section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .commands section .command {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+    </style>
+
+    <style is:inline>
+        .commands > section pre {
+            padding: 1em;
+            border-radius: 9px;
+            max-width: 80%;
+            background-color: var(--secondary-background) !important;
+        }
+
+        .commands > section pre code span {
+            white-space: break-spaces;
+        }
+    </style>
 </Layout>

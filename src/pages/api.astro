@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import * as config from "../config.js";
+
+---
+
+
+<Layout title="API">
+    <div class="wrapper">
+        <ul>
+            {Object.keys(config.API_REPOS).map(repo=>(
+                <li>
+                    <a href={`/api/${repo}`}>{repo}</a>
+                </li>
+            ))}
+        </ul>
+    </div>
+</Layout>

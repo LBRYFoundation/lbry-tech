@@ -67,8 +67,15 @@ Object.keys(docs).forEach(group=>{
 
 <Layout title={repo}>
     <div class="wrapper">
+        <section class="sidebar">
+            {(headings && headings.length) ? (
+                <aside id="toc">
+                    <TableOfContents headings={headings} />
+                </aside>
+            ) : ''}
+        </section>
         
-        <TableOfContents headings={headings} />
+        <!-- <TableOfContents headings={headings} /> -->
         <select>
             {tags.map(tag=>(
                 <option>{tag.version}</option>
@@ -130,6 +137,40 @@ Object.keys(docs).forEach(group=>{
             flex-direction: column;
             gap: 1em;
         }
+
+        .wrapper #toc {
+            position: fixed;
+            width: calc(var(--sidebar-width) - 2rem);
+            height: fit-content;
+            max-height: calc(100vh - var(--nav-height)*2 - 2rem * 2);
+            inset-block: 0;
+            inset-inline-end: 2rem;
+            margin: calc(2rem + var(--nav-height)) 0;
+            // background-color: var(--secondary-background);
+            transition: 0.3s;
+            z-index: 10;
+            overflow-y: auto;
+            border-radius: 1em;
+            background-color: var(--secondary-background);
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .wrapper #toc {
+                position: relative;
+                width: var(--sidebar-width);
+                max-height: unset;
+                inset-block: unset;
+                inset-inline-end: unset;
+                margin-top: 0;
+                z-index: 1;
+                background-color: transparent;
+            }
+
+            .wrapper .main {
+                padding-inline-end: unset;
+            }
+        }
+        
     </style>
 
     <style is:inline>

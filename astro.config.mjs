@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import codeblocks from "@thewebforge/astro-code-blocks";
 import preload from "astro-preload";
+import * as config from './src/config.js';
 
 import mdx from "@astrojs/mdx";
 
@@ -11,5 +12,6 @@ export default defineConfig({
     // Copy Button Options
     copyButtonTitle: 'Copy',
     copyButtonTooltip: 'Copied to clipboard',
-}), mdx()]
+  }), mdx()],
+  redirects: config.REDIRECTS,
 });

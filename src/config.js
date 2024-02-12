@@ -72,22 +72,22 @@ export const featured = [
 ]
 
 export const REDIRECTS = {
-  "/api/blockchain": "/api/lbrycrd",
-  "/api/lbry": "/api/sdk",
-  "/api/protocol": "/api/sdk",
-  "/play": "/playground",
-  "/repository-standards": "/resources/repository-standards",
-  "/resources/lbry-claimtrie": "/spec#claimtrie",
-  "/resources/schema": "/spec#metadata",
-  "/resources/signing-claim": "/resources/claim-signing",
-  "/resources/uri": "/spec#urls",
-  "/resources/video-lbryandroid": "https://odysee.com/video-2018-10-15053403:e",
-  "/resources/video-lbrycrd": "https://odysee.com/intro-to-LBRYcrd:5",
-  "/resources/video-lbrydesktop": "https://odysee.com/LBRYAppDesign:7",
-  "/resources/video-lbrysdk": "https://odysee.com/@lbrytech:1/lbrynet-dev-setup:9",
-  "/specification": "/spec",
-  "/tour": "/playground",
-  "/whitepaper": "/spec"
+  // "/api/blockchain": "/api/lbrycrd",
+  // "/api/lbry": "/api/sdk",
+  // "/api/protocol": "/api/sdk",
+  // "/play": "/playground",
+  // "/repository-standards": "/resources/repository-standards",
+  // "/resources/lbry-claimtrie": "/spec#claimtrie",
+  // "/resources/schema": "/spec#metadata",
+  // "/resources/signing-claim": "/resources/claim-signing",
+  // "/resources/uri": "/spec#urls",
+  // "/resources/video-lbryandroid": "https://odysee.com/video-2018-10-15053403:e",
+  // "/resources/video-lbrycrd": "https://odysee.com/intro-to-LBRYcrd:5",
+  // "/resources/video-lbrydesktop": "https://odysee.com/LBRYAppDesign:7",
+  // "/resources/video-lbrysdk": "https://odysee.com/@lbrytech:1/lbrynet-dev-setup:9",
+  // "/specification": "/spec",
+  // "/tour": "/playground",
+  // "/whitepaper": "/spec"
 }
 
 export const API_REPOS = {

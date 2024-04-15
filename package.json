@@ -2,7 +2,7 @@
   "name": "lbry-tech",
   "version": "0.0.1",
   "dependencies": {
-    "@astrojs/mdx": "^2.0.3",
+    "@astrojs/mdx": "^2.3.0",
     "@lbry/components": "^4.2.5",
     "@thewebforge/astro-code-blocks": "^0.2.0",
     "astro": "^4.4.3",

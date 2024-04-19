@@ -1,0 +1,49 @@
+---
+const {open} = Astro.props;
+---
+
+<details class="collapsible" {open}>
+    <summary>
+        <p><slot name="head"></p>
+        <p class="arrow">&#8595;</p>
+    </summary>
+    <div>
+        <slot name="body"/>
+    </div>
+</details>
+<style>
+    .collapsible summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .collapsible {
+        /* width: 90%; */
+        /* padding: 1rem; */
+        border-radius: 1rem;
+        overflow: hidden;
+        outline: 2px solid var(--tertiary-background);
+        background-color: var(--secondary-background);
+    }
+
+    .collapsible summary {
+        display: flex;
+        cursor: pointer;
+        font-weight: bold;
+        justify-content: space-between;
+        padding: 1rem;
+        user-select: none;
+        background-color: var(--tertiary-background);
+    }
+    
+    .collapsible summary p.arrow {
+        transition: transform 0.3s;
+    }
+
+    .collapsible:not([open]) summary {
+        margin-bottom: 1rem;
+    }
+
+    .collapsible[open] summary p.arrow {
+        transform: rotate(180deg);
+    }
+</style>

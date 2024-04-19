@@ -91,6 +91,13 @@ export const REDIRECTS = {
 }
 
 export const API_REPOS = {
-  "lbry-sdk": "docs/api.json",
-  "lbrycrd": "contrib/devtools/generated/api_v1.json"
+  "lbry-sdk": {
+    "api": "docs/api.json",
+    "description":  "The LBRY SDK for building decentralized, censorship resistant, monetized, digital content apps.",
+    "playground": true
+  },
+  "lbrycrd": {
+    "api": "contrib/devtools/generated/api_v1.json",
+    "description": "The blockchain that provides the digital content namespace for the LBRY protocol"
+  }
 }

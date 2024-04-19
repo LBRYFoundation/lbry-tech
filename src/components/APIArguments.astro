@@ -28,34 +28,29 @@ const {args} = Astro.props;
 ) : ''}
 <style>
     .arguments {
-            border: 1px solid var(--tertiary-background);
-        }
+        border: 1px solid var(--tertiary-background);
+    }
 
-        .arguments .left, .arguments .right {
-            display: flex;
-            flex-direction: column;
-        }
+    .arguments .argument {
+        background-color: var(--tertiary-background);
+        border-bottom: 1px solid var(--tertiary-background);
+    }
 
-        .arguments .argument {
-            background-color: var(--tertiary-background);
-            border-bottom: 1px solid var(--tertiary-background);
-        }
+    .arguments .argument th {
+        text-align: left;
+        padding: 0.25rem 1rem;
+    }
 
-        .arguments .argument th {
-            text-align: left;
-            padding: 0.25rem 1rem;
-        }
+    .arguments .argument span {
+        text-align: left;
+        font-weight: normal;
+    }
 
-        .arguments .argument span {
-            text-align: left;
-            font-weight: normal;
-        }
+    .arguments .argument .left, .arguments .argument .right {
+        padding: 0.5rem 1rem;
+    }
 
-        .arguments .argument .left, .arguments .argument .right {
-            padding: 0.5rem 1rem;
-        }
-
-        .arguments .argument:nth-child(2n) {
-            background-color: var(--secondary-background);
-        }
+    .arguments .argument:nth-child(2n) {
+        background-color: var(--secondary-background);
+    }
 </style>

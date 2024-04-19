@@ -108,3 +108,12 @@ a {
 .button-primary:hover {
     transform: scale(1.1);
 }
+
+// API Docs Examples
+body:not(.curl, .lbrynet, .python, .cli) .commands .example:first-of-type {
+    display: block;
+}
+
+body.curl .example.curl, body.lbrynet .example.lbrynet, body.python .example.python, body.cli .example.cli {
+    display: block;
+}

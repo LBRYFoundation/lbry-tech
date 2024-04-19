@@ -1,5 +1,6 @@
 ---
 import { Code } from "astro/components";
+import Collapsible from "./Collapsible.astro";
 
 const {examples, cmd} = Astro.props;
 
@@ -11,27 +12,37 @@ const output = examples.output;
 delete examples.title;
 delete examples.output;
 
+const options = (Object.keys(examples).map(example=> `.${example}`)).join(', ');
+
 function setExample(example, cmd){
                 console.log(example, cmd);
                 document.body.classList.toggle(example);
             }
 
 ---
-
-<div class="examples">
     {examples ? (
-        <div>
+        <div class="examples">
             <h3>Examples</h3>
             <h4>{title}</h4>
-            {Object.keys(examples).map(example=>(
-                <button data-example={example}>{example}</button>
-            ))}
-            {Object.keys(examples).map(example=>(
-                <div class:list={["example", cmd, example]}>
-                    <p>{example}</p>
-                    <Code lang={"bash"} code={`${examples[example]}`} />
-                </div>
-            ))}
+            <div class="buttons">
+                {Object.keys(examples).map(example=>(
+                    <button data-example={example}>{example}</button>
+                ))}
+            </div>
+            <div class="commands">
+                {Object.keys(examples).map(example=>(
+                    <div class:list={["example", cmd, example]}>
+                        {/* <p>{example}</p> */}
+                        <Code lang={"bash"} code={`${examples[example]}`} />
+                    </div>
+                ))}
+            </div>
+            {output && (
+                <Collapsible>
+                    <span slot="head">Output:</span>
+                    <Code slot="body" lang={"json"} code={`${output}`} />
+                </Collapsible>
+            )}
         </div>
         <script define:vars={{examples, cmd}}>
             
@@ -48,24 +59,43 @@ function setExample(example, cmd){
     ) : ''}
 </div>
 <style>
+
+    .examples {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 3px solid var(--secondary-background);
+    }
+
+    .commands {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
     .example {
         display: none;
     }
 
-    body:not(.curl, .lbrynet, .python) .examples .example:first-of-type {
-        display: block;
+    .buttons {
+        display: flex;
+        gap: 0.75rem;
     }
 
-    body.curl .example.curl {
-        display: block;
+    button {
+        color: var(--primary);
+        padding: 0.5em 0.75rem;
+        border-radius: 8px;
+        border: none;
+        background-color: var(--secondary-background);
     }
 
-    body.lbrynet .example.lbrynet {
-        display: block;
+    body:not(.curl, .lbrynet, .python, .cli) button:first-of-type, body.curl button[data-example=curl], body.lbrynet button[data-example=lbrynet], body.python button[data-example=python], body.cli button[data-example=cli] {
+        font-weight: bold;
+        color: var(--accent);
+        outline: 1px solid var(--accent);
+        /* background-color: var(--accent); */
     }
-
-    body.python .example.python {
-        display: block;
-    }
-
 </style>

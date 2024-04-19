@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import APIArguments from '../../components/APIArguments.astro';
 import APIExamples from '../../components/APIExamples.astro';
+import Collapsible from '../../components/Collapsible.astro';
 
 import * as config from "../../config.js";
 import { Code } from 'astro:components';
@@ -23,7 +24,7 @@ tags.unshift({version: "master"});
 
 const tag = tags[0];
 
-let docs = (await (await fetch(`https://cdn.jsdelivr.net/gh/${config.GITHUB_ORG}/${repo}@${tag.version}/${config.API_REPOS[repo]}`)).json());
+let docs = (await (await fetch(`https://cdn.jsdelivr.net/gh/${config.GITHUB_ORG}/${repo}@${tag.version}/${config.API_REPOS[repo].api}`)).json());
 
 
 // Convert lbrycrd docs to the same structure as lbry-sdk
@@ -82,22 +83,27 @@ Object.keys(docs).forEach(group=>{
             ))}
         </select>
         <div class="main">
-            <h1>{repo} {tag.version}</h1>
-            <p>Methods and signatures provided by {repo} are documented below. To build, download, or run the daemon, see the project
-                <a href={`https://github.com/${config.GITHUB_ORG}/${repo}/blob/${tag.version}/README.md`}>README</a>.
-            </p>
+            <div class="description">
+                <h1>{repo} {tag.version}</h1>
+                <p>Methods and signatures provided by <a href={`https://github.com/${config.GITHUB_ORG}/${repo}`}>{repo}</a> are documented below. To build, download, or run the daemon, see the project
+                    <a href={`https://github.com/${config.GITHUB_ORG}/${repo}/blob/${tag.version}/README.md`}>README</a>.
+                </p>
+            </div>
+            <hr/>
             <div class="commands">
                 {Object.keys(docs).map(header=>(
                     <section>
-                        <h1 id={header}>{header}</h1>
+                        <p class="header" id={header}>{header}</p>
                         {docs[header].commands.map(cmd=>(
                             <div class:list={["command", cmd.name]}>
                                 <h2 id={cmd.name}>{cmd.name}</h2>
                                 <p>{cmd.description}</p>
                                 <APIArguments args={cmd.arguments}/>
                                 <APIExamples cmd={cmd.name} examples={cmd.examples[0]}/>
-                                <h3>Returns</h3>
-                                <Code lang={"json"} code={`${cmd.returns || "Not available."}`} class:list={["returns"]} />
+                                <Collapsible open>
+                                    <span slot="head">Returns:</span>
+                                    <Code slot="body" lang={"json"} code={`${cmd.returns || "Not available."}`} class:list={["returns"]} />
+                                </Collapsible>
                                 </div>
                             <hr/>
                         ))}
@@ -107,12 +113,16 @@ Object.keys(docs).forEach(group=>{
         </div>
     </div>
     <style>
+        /* Should we have version selector? */
+        select {
+            display: none;
+        }
+
         .wrapper {
-            padding: 1rem;
+            padding: 0 1rem;
         }
 
         .wrapper .main {
-            /* width: calc(100vw - var(--sidebar-width)); */
             padding-inline-end: var(--sidebar-width);
             transition: 0.3s;
             overflow-x: hidden;
@@ -120,10 +130,24 @@ Object.keys(docs).forEach(group=>{
             width: calc(100%);
         }
 
+        .description {
+            padding: 2rem;
+        }
+
+        .description a {
+            color: var(--accent);
+        }
+
         .commands {
             display: flex;
             flex-direction: column;
             gap: 25px;
+            padding: 1rem;
+        }
+
+        .commands .header {
+            font-size: 1.75rem;
+            font-weight: bold;
         }
 
         .commands section {
@@ -131,11 +155,12 @@ Object.keys(docs).forEach(group=>{
             flex-direction: column;
             gap: 25px;
         }
-
+        
         .commands section .command {
             display: flex;
             flex-direction: column;
             gap: 1em;
+            padding: 0 1rem;
         }
 
         .wrapper #toc {

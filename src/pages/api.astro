@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import * as config from "../config.js";
+
+---
+
+
+<Layout title="API">
+    <div class="wrapper">
+        <h1>Exlore the APIs</h1>
+        <ul class="apis">
+            {Object.keys(config.API_REPOS).map(repo=>(
+                <li class="api">
+                    <h2>{repo}</h2>
+                    <hr/>
+                    <p>{config.API_REPOS[repo].description}</p>
+                    <div class="button-primary"><a href={`/api/${repo}`}>{repo.toUpperCase()} APIs</a></div>
+                    {config.API_REPOS[repo].playground && (
+                        <p class="playground">Available in <a href="/playground">Playground</a></p>
+                    )}
+                </li>
+            ))}
+        </ul>
+    </div>
+    <style>
+        .wrapper {
+            margin: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+
+        hr {
+            color: var(--accent);
+        }
+
+        .apis {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            gap: 25px;
+            padding: 0;
+        }
+
+        .apis .api {
+            display: flex;
+            flex-direction: column;
+            max-width: 30%;
+            height: max-content;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .apis .api h2 {
+            text-align: center;
+            text-transform: uppercase;
+            /* border-bottom: 1px solid var(--accent); */
+        }
+        
+        .apis .api p {
+            text-align: center;
+        }
+
+        .apis .api .button-primary {
+            margin: auto;
+        }
+
+        .apis .api .playground a {
+            color: var(--accent);
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .apis .api {
+                max-width: 50%;
+            }
+        }
+
+        @media only screen and (max-width: 750px) {
+            .apis {
+                flex-direction: column;
+                padding: 0;
+                width: 80%;
+                margin: auto;
+            }
+
+            .apis .api {
+                max-width: unset;
+            }
+        }
+    </style>
+</Layout>

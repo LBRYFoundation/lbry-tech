@@ -1,6 +1,7 @@
 export const AWESOME_LBRY = "https://github.com/LBRYFoundation/Awesome-LBRY";
 export const EDIT_PAGE = "Edit this page";
 export const REPOSITORY = "LBRYFoundation/lbry-tech";
+export const GITHUB_ORG = "LBRYFoundation";
 
 export const features = [
     {
@@ -69,3 +70,34 @@ export const featured = [
     description: "Audio media crawler for lbry."
   }
 ]
+
+export const REDIRECTS = {
+  // "/api/blockchain": "/api/lbrycrd",
+  // "/api/lbry": "/api/sdk",
+  // "/api/protocol": "/api/sdk",
+  // "/play": "/playground",
+  // "/repository-standards": "/resources/repository-standards",
+  // "/resources/lbry-claimtrie": "/spec#claimtrie",
+  // "/resources/schema": "/spec#metadata",
+  // "/resources/signing-claim": "/resources/claim-signing",
+  // "/resources/uri": "/spec#urls",
+  // "/resources/video-lbryandroid": "https://odysee.com/video-2018-10-15053403:e",
+  // "/resources/video-lbrycrd": "https://odysee.com/intro-to-LBRYcrd:5",
+  // "/resources/video-lbrydesktop": "https://odysee.com/LBRYAppDesign:7",
+  // "/resources/video-lbrysdk": "https://odysee.com/@lbrytech:1/lbrynet-dev-setup:9",
+  // "/specification": "/spec",
+  // "/tour": "/playground",
+  // "/whitepaper": "/spec"
+}
+
+export const API_REPOS = {
+  "lbry-sdk": {
+    "api": "docs/api.json",
+    "description":  "The LBRY SDK for building decentralized, censorship resistant, monetized, digital content apps.",
+    "playground": true
+  },
+  "lbrycrd": {
+    "api": "contrib/devtools/generated/api_v1.json",
+    "description": "The blockchain that provides the digital content namespace for the LBRY protocol"
+  }
+}

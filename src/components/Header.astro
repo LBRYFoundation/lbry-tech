@@ -39,7 +39,19 @@ function handleMenu(e) {
       </ul>
     </div>
     <div class="right">
-        <div class="search"><p>Search TODO</p></div>
+        <div class="search"><p>Search TODO</p><script>
+          // Astro will do the job of bundling everything for you
+          import { getOramaDB, search } from "@orama/plugin-astro/client"
+      
+          // We load the DB that we generated at build time, this is an asynchronous
+          // operation, so we must either await, or rely on `.then` calls.
+          const db = await getOramaDB('mydb')
+      
+          // Now we can search inside our DB. Of course, feel free to use it in more
+          // interesting ways.
+          console.log('Search Results')
+          console.log(await search(db, { term: 'blob' }))
+        </script></div>
         <btn id="menu">
             <span></span>
             <span></span>

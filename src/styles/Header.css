@@ -3,6 +3,10 @@ header {
     background-color: var(--tertiary-background);
 }
 
+header a {
+    color: var(--body-text);
+}
+
 header nav {
     display: flex;
     justify-content: space-between;

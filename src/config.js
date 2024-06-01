@@ -71,6 +71,11 @@ export const featured = [
   }
 ]
 
+export const meta = {
+  title: "LBRY Tech",
+  color: "#27E4EB"
+}
+
 export const REDIRECTS = {
   // "/api/blockchain": "/api/lbrycrd",
   // "/api/lbry": "/api/sdk",

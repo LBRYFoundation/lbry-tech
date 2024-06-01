@@ -85,7 +85,7 @@ p {
 }
 
 a {
-    color: var(--body-text);
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -103,6 +103,7 @@ a {
     border-radius: 0.5em;
     padding: 10px 20px;
     background-color: var(--tertiary-background);
+    color: var(--body-text);
 }
 
 .button-primary:hover {

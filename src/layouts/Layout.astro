@@ -4,12 +4,17 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 import { ViewTransitions } from 'astro:transitions';
+import LoadingIndicator from "astro-loading-indicator/component"
+
+import * as config from '../config.js';
+
 
 interface Props {
 	title?: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,10 +24,10 @@ const { title } = Astro.props;
 		<title>{title || 'LBRY Tech'}</title>
 
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
-		<meta name="author" content="${config.meta.title}"/>
-		<meta name="description" content="${description}"/>
-		<meta name="title" content="${config.meta.title}"/>
-		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"/>
+		<meta name="author" content={config.meta.title}/>
+		<meta name="description" content={description || config.meta.title}/>
+		<meta name="title" content={config.meta.title}/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- / Open Graph / -->
 		<meta property="og:title" content={title}/>
@@ -33,20 +38,21 @@ const { title } = Astro.props;
 		<meta property="og:locale" content="en_US"/>
 		<meta property="og:site_name" content="LBRY.tech"/>
 		<meta property="og:type" content="website"/>
-		<meta property="og:url" content="https://lbry.tech${state.href}"/>
+		<meta property="og:url" content={`https://lbry.tech${Astro.url.href}`}/>
 
 		<!-- / Social/App Stuff / -->
-		<meta name="apple-mobile-web-app-title" content="${config.meta.title}"/>
-		<meta name="application-name" content="${config.meta.title}"/>
-		<meta name="msapplication-TileColor" content="${config.meta.color}"/>
+		<meta name="apple-mobile-web-app-title" content={config.meta.title}/>
+		<meta name="application-name" content={config.meta.title}/>
+		<meta name="msapplication-TileColor" content={config.meta.color}/>
 		<meta name="msapplication-TileImage" content="/assets/apple-touch-icon.png"/>
-		<meta name="theme-color" content="${config.meta.color}"/>
+		<meta name="theme-color" content={config.meta.color}/>
 
 		<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"/>
 		<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"/>
-		<link rel="mask-icon" href="/assets/favicon.svg" color="${config.meta.color}"/>
+		<link rel="mask-icon" href="/assets/favicon.svg" color={config.meta.color}/>
 		<link rel="shortcut icon" href="/assets/favicon.ico"/>
 		<ViewTransitions />
+		<LoadingIndicator color="#27E4EB" />
 	</head>
 	<body>
 		<Header/>

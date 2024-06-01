@@ -11,7 +11,7 @@ import { resources } from '../config';
         {resources.map((resource: object) => (
             <div class="resource">
                 <div class="text">
-                    <p class="title">{resource.title}</p>
+                    <h2 class="title">{resource.title}</h2>
                     <p class="description">{resource.description}</p>
                 </div>
                 <div class="button-primary"><a href={resource.href}>Study {resource.title}</a></div>

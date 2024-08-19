@@ -6,7 +6,7 @@
     "@lbry/components": "^4.2.5",
     "@orama/plugin-astro": "^2.0.7",
     "@thewebforge/astro-code-blocks": "^0.2.0",
-    "astro": "^4.13.3",
+    "astro": "^4.14.2",
     "astro-loading-indicator": "^0.4.0",
     "astro-preload": "^1.1.2",
     "markdown-wasm": "^1.2.0",

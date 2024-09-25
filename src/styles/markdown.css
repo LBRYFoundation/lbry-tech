@@ -125,7 +125,7 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
     font-weight: var(--base-text-weight-semibold, 600);
     padding-bottom: .3em;
     font-size: 2em;
-    border-bottom: 1px solid var(--color-border-muted);
+    border-bottom: 1px solid var(--accent);
   }
   
   .markdown-body mark {
@@ -333,7 +333,7 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
     font-weight: var(--base-text-weight-semibold, 600);
     padding-bottom: .3em;
     font-size: 1.5em;
-    border-bottom: 1px solid var(--color-border-muted);
+    border-bottom: 1px solid var(--accent);
   }
   
   .markdown-body h3 {

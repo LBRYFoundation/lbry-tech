@@ -71,6 +71,15 @@ import { featured, AWESOME_LBRY } from '../config';
         font-weight: bold;
     }
 
+    .projects .project .text .description {
+        font-size: 1rem;
+    }
+
+    .projects .project .text .title::after {
+        width: 0%;
+        transition: 0.3s;
+    }
+
     .projects .project:hover {
         transform: scale(1.1);
     }
@@ -78,4 +87,24 @@ import { featured, AWESOME_LBRY } from '../config';
     .projects .project:hover .text {
         transform: translateY(-100%);
     }
+
+    .projects .project:hover .text .title::after {
+        content: "";
+        display: block;
+        height: 0.5rem;
+        vertical-align: bottom;
+        border-top: 1px solid var(--accent);
+        animation: forwards ease-in-out 0.3s slide ;
+    }
+
+    @keyframes slide {
+        0% {
+            width:0px;
+        }
+
+        100% {
+            width:calc( 100% - 1px );
+        }
+    }
+
 </style>
